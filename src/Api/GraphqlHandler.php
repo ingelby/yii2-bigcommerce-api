@@ -22,9 +22,6 @@ class GraphqlHandler extends AbstractHandler
     )
     {
 
-        if (null === $expiresAt) {
-            $expiresAt = Carbon::now()->addMinute()->getTimestamp();
-        }
         $response = $this->post(
             '/graphql',
             [
