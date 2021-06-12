@@ -7,8 +7,13 @@ use Ingelby\Bigcommerce\Exceptions\BigCommerceConfigException;
 use ingelby\toolbox\services\inguzzle\exceptions\InguzzleClientException;
 use ingelby\toolbox\services\inguzzle\InguzzleHandler;
 
-abstract class AbstractHandler extends InguzzleHandler
+abstract class AbstractV3Handler extends InguzzleHandler
 {
+    protected const DEFAULT_BASE_URL = 'https://api.bigcommerce.com/';
+    /**
+     * @var string
+     */
+    protected string $apiAccessToken;
 
     protected array $defaultClientConfig = [
 
@@ -24,12 +29,14 @@ abstract class AbstractHandler extends InguzzleHandler
      */
     public function __construct(array $apiConfig)
     {
-        if (!isset($apiConfig['storeUrl'])) {
-            throw new BigCommerceConfigException('Missing storeUrl in api config');
+        if (!isset($apiConfig['accessToken'])) {
+            throw new BigCommerceConfigException('Missing accessToken in api config');
         }
         $this->apiAccessToken = $apiConfig['accessToken'];
         
-        $baseUrl = $apiConfig['storeUrl'] ;
+        $baseUrl = $apiConfig['baseUrl'] ?? static::DEFAULT_BASE_URL;
+        $baseUrl = $apiConfig['baseUrl'] ?? static::DEFAULT_BASE_URL;
+        $uriPrefix = $apiConfig['uriPrefix'] ?? '';
 
         $clientConfig = array_merge(
             $this->defaultClientConfig,
@@ -41,7 +48,7 @@ abstract class AbstractHandler extends InguzzleHandler
 
         parent::__construct(
             $baseUrl,
-            '',
+            $uriPrefix,
             $clientErrorResponseCallback,
             $serverErrorResponseCallback,
             $clientConfig
