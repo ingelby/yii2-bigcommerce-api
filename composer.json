@@ -1,0 +1,29 @@
+{
+  "name": "ingelby/yii2-bigcommerce-api",
+  "description": "Yii2 Big Commerce API Wrapper",
+  "type": "library",
+  "license": "Proprietary",
+  "authors": [
+    {
+      "name": "Ingelby",
+      "email": "dev@ingelby.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Ingelby\\Bigcommerce\\": "src"
+    }
+  },
+  "require": {
+    "php": ">=7.4.0",
+    "ingelby/toolbox": "^1.0.27"
+  },
+  "require-dev": {
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "git@github.com:ingelby/toolbox.git"
+    }
+  ]
+}
