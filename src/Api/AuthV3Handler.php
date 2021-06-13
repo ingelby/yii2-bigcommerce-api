@@ -32,8 +32,8 @@ class AuthV3Handler extends AbstractV3Handler
     }
 
     /**
+     * @param Carbon|null $expiresAt
      * @param int      $channelId
-     * @param int|null $expiresAt
      * @param array    $allowedCorsOrigins
      * @return ApiTokenModel
      * @throws \Ingelby\Bigcommerce\Exceptions\BigCommerceClientException
@@ -41,19 +41,20 @@ class AuthV3Handler extends AbstractV3Handler
      * @throws \ingelby\toolbox\services\inguzzle\exceptions\InguzzleServerException
      */
     public function generateApiToken(
+        ?Carbon $expiresAt = null,
         int $channelId = 1,
-        int $expiresAt = null,
         array $allowedCorsOrigins = []
-    ) {
+    )
+    {
 
         if (null === $expiresAt) {
-            $expiresAt = Carbon::now()->addMinute()->getTimestamp();
+            $expiresAt = Carbon::now()->addMinute();
         }
         $response = $this->post(
             '/storefront/api-token',
             [
-                'channel_id'          => $channelId,
-                'expires_at'          => $expiresAt,
+                'channel_id'           => $channelId,
+                'expires_at'           => $expiresAt->getTimestamp(),
                 'allowed_cors_origins' => $allowedCorsOrigins,
             ],
             [],
@@ -62,7 +63,11 @@ class AuthV3Handler extends AbstractV3Handler
             ]
         );
 
-        $apiTokenModel = new ApiTokenModel();
+        $apiTokenModel = new ApiTokenModel(
+            [
+                'expiresAt' => $expiresAt,
+            ]
+        );
         $apiTokenModel->setAttributes($response['data'] ?? []);
         return $apiTokenModel;
     }

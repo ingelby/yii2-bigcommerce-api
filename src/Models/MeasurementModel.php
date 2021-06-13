@@ -4,12 +4,13 @@
 namespace Ingelby\Bigcommerce\Models;
 
 
-use Carbon\Carbon;
+use GraphQL\Query;
 
-class ApiTokenModel extends AbstractBigcommerceModel
+class MeasurementModel extends AbstractBigcommerceModel
 {
-    public ?string $token = null;
-    public ?Carbon $expiresAt = null;
+    public ?float $value = null;
+    public ?string $unit = null;
+
 
     /**
      * @return array
@@ -19,8 +20,8 @@ class ApiTokenModel extends AbstractBigcommerceModel
         return [
             [
                 [
-                    'token',
-                    'expiresAt',
+                    'value',
+                    'unit',
                 ],
                 'safe',
             ],

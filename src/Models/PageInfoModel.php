@@ -4,12 +4,10 @@
 namespace Ingelby\Bigcommerce\Models;
 
 
-use Carbon\Carbon;
-
-class ApiTokenModel extends AbstractBigcommerceModel
+class PageInfoModel extends AbstractBigcommerceModel
 {
-    public ?string $token = null;
-    public ?Carbon $expiresAt = null;
+    public ?string $startCursor = null;
+    public ?string $endCursor = null;
 
     /**
      * @return array
@@ -19,11 +17,12 @@ class ApiTokenModel extends AbstractBigcommerceModel
         return [
             [
                 [
-                    'token',
-                    'expiresAt',
+                    'startCursor',
+                    'endCursor',
                 ],
                 'safe',
             ],
         ];
     }
+
 }
