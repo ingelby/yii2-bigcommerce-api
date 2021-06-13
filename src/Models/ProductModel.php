@@ -92,9 +92,9 @@ class ProductModel extends AbstractBigcommerceModel
 
     public function mapRawPrices(array $rawPrices): void
     {
-        $this->mapRawRetailPrice($rawPrices['price'] ?? []);
-        $this->mapRawRetailPrice($rawPrices['salePrice'] ?? []);
-        $this->mapRawPrice($rawPrices['retailPrice'] ?? []);
+        $this->mapRawPrice($rawPrices['price'] ?? []);
+        $this->mapRawSalePrice($rawPrices['salePrice'] ?? []);
+        $this->mapRawRetailPrice($rawPrices['retailPrice'] ?? []);
     }
 
     protected function mapRawPrice(array $rawPrice): void

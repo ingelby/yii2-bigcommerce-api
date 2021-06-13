@@ -26,6 +26,6 @@ class EdgeModel extends AbstractBigcommerceModel
     public function mapRawProduct(array $rawProductNode)
     {
         $this->product->setAttributes($rawProductNode);
-        $this->product->mapRawPrices($rawProductNode['prices'] ?? []);
+        $this->product->mapRawPrices($rawProductNode['prices']?? []);
     }
 }
